@@ -1,35 +1,146 @@
-<!DOCTYPE html>
-<html>
-    <title>Simple Interest Calculator</title>
-    <head>
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
-    </head>
-    <Div class="maindiv">
-        <h1>Simple Interest Calculator</h1>
+<!-- Simple interest, as the name suggests, is the most straightforward to calculate. The information from the bank that you will need is just the rate known as the APY (annual percentage yield), which is then multiplied by the amount deposited (known as the principal) and the number of years that the deposit is held in the savings account. So for example, if you deposit $5,000 in a savings account with an APY of 1%, in one year you will earn $50 interest ($5,000 x 0.01 x 1). If you leave the deposit for another year, another $50 interest will be earned so that over the 2 years, total interest earned will be $100 ($5,000 x 0.01 x 2). For 3 years, total interest is $150, 4 is $200 and so on. The main point to remember is that no matter how much you have in your savings account, interest will only be earned on your initial deposit. -->
 
-        Amount <input type="number"  id="principal">  <br/><br/>
-        Rate <input type="number"  id="rate" min="1" max="20" value="10.25" Step=".25">  <br/><br/>
-        No. of Years <select id="years">
-        <option value="1">1</option> 
-        <option value="2">2</option> 
-        <option value="3">3</option> 
-        <option value="4">4</option> 
-        <option value="5">5</option> 
-        <option value="6">6</option> 
-        <option value="7">7</option> 
-        <option value="8">8</option> 
-        <option value="9">9</option> 
-        <option value="10">10</option></select> <br/><br/>
-        Interest : <input type="range" id="rate" min="minval" max="maxval" value="default_val"> 
-        <span id="rate_val">
-            10.25%
-        </span>
-        <span id="result"></span><br>
-        <button onclick="Compute()">Compute Interest</button>
-        <span id="result" ></span>
-    </Div>
-    <footer>
-        &#169; This Calculator belongs to -- Stephen Wadsworth --
-    </footer>
+<!-- About simple interest, the images showed on the tuition materials displays a wrong value. 
+Simple Interest output on original example code upon course web pages -->
+
+<!-- To prove calculation works with normal numerical variables, if I put + principal in the output or var statements it concantenates the value onto the result of the equation. Something to do with the way + interpreted by Jscript. Have been unable to find a syntax that fixes it.
+
+<script type="text/javascript">
+
+    var p, t, r, SI;
+    
+    // p = principal
+    // t = time
+    // r = rate
+    // SI = simple interest
+    
+    // Calculate simple interest
+    p = 100000;
+    t = 5;
+    r = 3.5;
+    
+    SI = (p * t * r) / 100+p;
+    
+    // Output
+    document.write("Simple Interest = " + SI); -->
+
+<!-- Attempt at changing colors via javascript>, unsure as to where to place this, within document.
+<script>
+	 {
+         element.style.cssText= 'color:black;backgroundColor:yellow');
+	 element.style.backgroundColor = "yellow"
+	 {
+
+</script> -->
+
+<!-- From when I was trying to highlight the output, amazing how much CSS overrules values and also Javascript outputs. Solution lay within C.S.S. and putting tag around output values.
+
+<script>
+function changeColor(){
+  var newColor = document.getElementById('colorPicker').value;
+	document.getElementById('colorMsg').style.background = newColor;
+}
+</script>
+<div id="colorMsg" style="font-size:18px;width:150px;height:100px;padding:5px;">Choose a background color...</div> 
+<select id="colorPicker" oninput="JavaScript:changeColor()">
+<option value="transparent">None</option>
+<option value="yellow">Yellow</option>
+<option value="salmon">Salmon</option>
+<option value="lightblue">Light Blue</option>
+<option value="limegreen">Lime Green</option>-->
+</select> 
+
+<!-- Page code starts, here -->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<!-- Call Cascading Style Sheet.css, here so it is applied to the rest of the Document in the Dom tree. MetaTag is to define code type otherwise I get an error in Firefox's editor. -->
+
+<link rel="stylesheet" href="style.css">
+ 
+</head>
+
+<!-- Everything we see on the screen starts below this tag. I use a Div to create a container of type box and apply the classID, which is the formatting stored within the CSS file. -->
+
+<body>
+
+
+<div class="maindiv">
+
+<!-- Tried various commands to get this to stretch across box, to no avail. Tried using style command and justify, stretch did nothing.-->
+             
+<h1 style="text-align:left">Simple Interest Calculator</h1>
+
+
+<!-- the form below requests the Amount (Principal (variable name), variable name getPrincipalValue), uses an input requester and using Css, tags to check the user hasn't entered a number below "1", prevented by using value of Min=1 and Placeholder tag "1", within input element. It displays some little bubbles under the input box, requesting the user doesn't enter this type of data. Unsure how the attributes within the span tags produce the results they do without being coded. I am assuming they have default values built into myForm.user.$error.min attribute. The form element is used to let the browser know input is to be processed and either submitted or output to the screen. And is a container for these input elements.-->
+
+<form name="myForm">
+
+<span> Amount <input placeholder="1" autofocus type="number" id="getPrincipalValue" name="count" ng-		model="count" min="1"></input></span>
+<span style="color:black" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+<span ng-show="myForm.user.$error.min"></span>
+
+<!-- An input using the new HTML5 feature of "Sliders", for inputting value. Previously had to be hand coded in another language. Once again have used Min and Max values to specify range. This time the Step attribute has been used as well to alter the value of the slider by .5 increments. This is the interest rate (Interest (Variable name, variable, getInterestRate). The oninput command is used to sense as soon as the slider is used and assign the a label to the value. By doing this I can output the value to the right of the slider as it is altered, plus I was able to fit a % sign afterwards. Not sure what the code in the original file provided was meant to do. Only problem is not having a value showing until the slider is moved.-->
+
+<p style="text-align:left">Interest <input type="range" id="getInterestRate" name="interest" value="10.25" min="1" max="20" Step=".5" oninput="document.getElementById('Label1').innerHTML = this.value" />
+<label id="Label1" style="padding-left:20px;"></label>%</p>
+
+<!-- Now gather the number of years the annual interest is calaculated for using an input type of Select. The option attribute lets you assign a value list to the selector so a value can be input. Variable (getYear). -->
+
+<p style="text-align:left"> No. of Years    <select id="getYear">
+	        <option value="1">1</option> 
+	        <option value="2">2</option> 
+	        <option value="3">3</option> 
+	        <option value="4">4</option> 
+	        <option value="5">5</option> 
+	        <option value="6">6</option> 
+	        <option value="7">7</option> 
+	        <option value="8">8</option> 
+	        <option value="9">9</option> 
+	        <option value="10">10
+</option></select></P>
+
+<!-- Alright time to create a script that on clicking the button (input type="button") and using the onclick command to call a javascript to multiply the values after assigning them new variable names and output them to the Javascript output command document.getElementById("outputPrincipal").innerHTML. You can mix some text and values here. However due to the way Javascript determines whether it the output value is a string on Integer (Number), dependant on where the brackets and plus sign are I have been unable to add the Principal and final result together for output at the line of code that reads document.getElementById("compounded").innerHTML = "You will receive $ " + resultInterest. The var commands assign the output of the values created by the form input above to a new variable resultInterest to be used by the above line of code. Also the ouput is displayed by the block of <p id=outputPrincipal", etc elements inside a new div tag. Having used the class-simple-highlight from the Css file, I am able to color the output from the button click-->
+
+<p style="text-align:left"> <input type="button" value="Compute Interest" id="" onclick="compoundInterest(this.principal , this.interest , this.nyear);"/></p>
+         
+</form>
+
+<div class="simple-highlight" >
+<p  id="outputPrincipal" </p>
+<p  id="outputInterest"></p>
+<p  id="compounded"> </p>
+<p  id="outputYear"> </p>
+</div>
+
+</body>
+
+<footer>
+<span>      &#169; This Calculator belongs to -- Stephen Wadsworth --
+</span>
+</footer>
+
+<!-- Using the /body element, the browser is informed that anything below this part of the document is outside the container as is at the bottom of the document. I am still a bit foggy on why it doesn't then assume the outer page values, but continues to still use those of the CSS. The footer element is then used to put a footer (Makes sure it is at the bottom of the page. The &#169 is the plain text values used to inform the browser to display a copyright symbol.--Have ended up with and annoying yellow bar in whitespace? Why?>
+
+<!-- I have put a Reset Form button here, it clears all the values on the page and returns the cursor to the top of the page and the first input field, because the autfocus attribute was added to the Amount input field, the browser knows to return the user to this area on the page.-->
+
+<input type="button" value="Refresh Page" onClick="window.location.reload(true)">
+
+</div>
+<script src="script.js" ></script>
+</body>
 </html>
+
+<!-- Close out all remaining open tags by using the </ ?> value
+
+
+
+
+<!-- Tasks done, not done>			
+autofocus done.
+validation will use java script. done.
+Seperating Javascript from HTML - Not done.
+Produce output for total field (unable to achieve due to flaw in javascript).

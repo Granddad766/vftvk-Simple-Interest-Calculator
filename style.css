@@ -1,19 +1,40 @@
+/* Set the main documents background color to black, use a font from the arial family, text is black. Font-size, browser default.*/
+
 body {
     background-color:black;
     font-family:arial;
-    color:white
+    color:black
     }
+
+/* For Heading one, make text gray, use verdana font, size uses system defaults, plus browser interpretation of Header tag, sizing.*/
+
 h1 {
     color:grey;
-    font-family:verdana
+    font-family:verdana;
+    margin-left: 0;
+    margin-right: 0;
 }
+
+/* Defines the first container (Div) and assigns it a ClassID (hence why it has a . before maindiv). Defines properties of container, color white, font black, It's width 300 pixels, wide, browser automatically calculates other values. Of note in the main HTMl, the header is called inside the Div, so it fits within the container, with the DOM structure. The padding allows for 20 pixels between this container and any other containers on the page. Padding is a way of pushing objects inside the container over a certain distance. Border radius, puts the rounded edges on the four corners. The value specifies how much rounding is applied. Margin auto, lets the browser decide how to allocate all four margins, to allow items to fit on the page properly.*/
+
 .maindiv {
     background-color:white
     ;font-color:black
     ;width: 300px;
     padding:20px;
+    padding-left:100px;
+    padding-right:100px;
     ;border-radius:25px;
     margin: auto;
+
+/* This Class, highlights the background of the container.*/
+	
 }
-
-
+.simple-highlight{
+ background-color:yellow;
+ padding: 0px;
+ margin-right: 100px;
+ margin-top: 0px;
+ margin-bottom: 0px;
+}
+/*--simple highlight, important no padding otherwise yellowbox on screen before output. Fixed 10:14pm */
